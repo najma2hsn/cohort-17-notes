@@ -1,10 +1,12 @@
 from unittest.mock import patch
 
+
 def test_home_route_returns_200(test_api):
 
     response = test_api.get("/")
 
     assert response.status_code == 200
+
 
 """
 Scenarios:
@@ -15,6 +17,7 @@ Scenarios:
 - The route returns 200
 - If we call it a bunch of times, it's not always the same
 """
+
 
 @patch("main.load_companies")
 def test_companies_random_route_returns_from_data(fake_load_companies, test_api):

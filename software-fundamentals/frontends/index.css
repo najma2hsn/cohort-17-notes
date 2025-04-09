@@ -1,5 +1,5 @@
 body {
-    background-color: #128731;
+    background-color: #FFC0CB;
     color: yellow;
 }
 p {
@@ -38,6 +38,13 @@ div {
 .flexing-my-boxes {
     margin: 0;
     width: 100%;
+    display: flex;
+    justify-content: space-around; /* space-around, space-between, space-evenly */
+}
+
+.flexing-my-box {
+    margin: 0;
+    width: 50%;
     display: flex;
     justify-content: space-around; /* space-around, space-between, space-evenly */
 }
