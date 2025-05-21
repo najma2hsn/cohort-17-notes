@@ -1,0 +1,7 @@
+python-dotenv
+pandas
+streamlit
+altair
+plotly.express
+boto3
+awswrangler
