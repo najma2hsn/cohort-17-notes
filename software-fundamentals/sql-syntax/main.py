@@ -6,8 +6,8 @@ from psycopg2.extensions import connection, cursor
 app = Flask(__name__)
 
 # connection - listen to the database
-def get_database_connection() -> connection:
-    return psycopg2.connect("dbname=movies user=ruyzambrano host=localhost")
+def get_database_connection(username: str) -> connection:
+    return psycopg2.connect(f"dbname=movies user={username} host=localhost")
 
 # cursor - how we interact with the database
 def get_database_cursor(conn: connection) -> cursor:
@@ -16,10 +16,13 @@ def get_database_cursor(conn: connection) -> cursor:
 def search_movie(conn: connection, search: str) -> dict:
     with get_database_cursor(conn) as curs:
         curs.execute(
-            f"SELECT title, budget, overview, popularity FROM movies WHERE title ILIKE %{search}%;"
+            "SELECT title, budget, overview, popularity FROM movies WHERE title ILIKE '%%s%';",
+            [search]
             )
         rows = curs.fetchall()
     return rows
+
+"api/movies/;DROP DATABASE movies;"
 
 def load_all_movies(conn: connection) -> list[dict]:
     with get_database_cursor(conn) as curs:
@@ -32,7 +35,7 @@ def load_all_movies(conn: connection) -> list[dict]:
 
 @app.route('/movies', methods=['GET', 'POST'])
 def movies():
-    with get_database_connection() as conn:
+    with get_database_connection("ruyzambrano") as conn:
         return load_all_movies(conn), 200
 
 # Extra challenge: pagination

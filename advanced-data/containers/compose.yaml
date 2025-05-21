@@ -1,0 +1,14 @@
+services:
+  comp:
+    image: ubuntu
+    container_name: example_container
+    ports:
+      - 3000:3000
+  database:
+    image: postgres
+    container_name: ruy_postgres
+    environment:
+      POSTGRES_PASSWORD: example
+    ports:
+      - 5432:5432
+
