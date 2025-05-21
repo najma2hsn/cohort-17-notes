@@ -5,7 +5,7 @@ from random import choice
 
 from flask import Flask, abort, request
 
-from company_functions import is_valid_company, add_new_company, get_next_id, load_companies
+from company_functions import is_valid_company, add_new_company, get_next_id, load_companies, save_companies
 
 api = Flask(__name__)  # Create an instance of a server/API
 
@@ -36,7 +36,7 @@ def company_index():
         return created_company, 201
     
 
-@api.route("/company/<int:id>", methods=["GET", "DELETE"])
+@api.route("/company/<int:id>", methods=["GET", "DELETE", "PATCH"])
 def company_show(id: int):
     """Returns data on a single company or deletes a company."""
     companies = load_companies()
@@ -45,9 +45,18 @@ def company_show(id: int):
             if c["id"] == id:
                 return c
         return {"error": True, "message": f"Unable to find a company with ID {id}"}, 404
-    else:
+    elif request.method == "DELETE":
         companies = [c for c in companies if c["id"] != id]
+        save_companies(companies)
         return { "success": True }
+    else:
+        company = [c for c in companies if c["id"] == id][0]
+        if "edited" in company:
+            company["edited"] += 1
+        else:
+            company["edited"] = 1
+        save_companies(companies)
+        return company
 
 
 @api.get("/company/random")

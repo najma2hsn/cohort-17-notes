@@ -41,10 +41,26 @@ div {
     display: flex;
     justify-content: space-around; /* space-around, space-between, space-evenly */
 }
+<<<<<<< HEAD
 
 .flexing-my-box {
     margin: 0;
     width: 50%;
     display: flex;
     justify-content: space-around; /* space-around, space-between, space-evenly */
+=======
+#square {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            position: absolute;
+            animation: moveSquare 5s infinite;
+        }
+@keyframes moveSquare {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(calc(100vw - 50px), 0); }
+    50% { transform: translate(calc(100vw - 50px), calc(100vh - 50px)); }
+    79% { transform: translate(0, calc(100vh - 50px)); }
+    100% { transform: translate(0, 0); }
+>>>>>>> 07d68c55dea31af3c62ef26a6372c6469896a0d6
 }

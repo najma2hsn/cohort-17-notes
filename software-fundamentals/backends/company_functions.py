@@ -30,3 +30,8 @@ def load_companies() -> list[dict]:
         companies = json.load(f)
 
     return companies
+
+def save_companies(data: list[dict]):
+
+    with open("companies.json", "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=4)
